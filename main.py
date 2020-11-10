@@ -1,4 +1,4 @@
-from slottedAloha512 import SlottedAloha
+from Sources.slottedAloha import SlottedAloha
 
 if __name__ == "__main__":
     while(1):   
@@ -22,6 +22,10 @@ if __name__ == "__main__":
                 if(Total<TemposAloha[i]):
                     Total = TemposAloha[i]
             print("O tempo total foi: ",Total," microssegundos")
+        #if(a==2):
+            #Entrar com parte do CSMA
+        #if(a==3):
+            #Entrar com parte do algoritmo de recuo
         print("\n\nDeseja voltar ao menu inicial?\n\t1 - Sim\n\t2 - Nao")
         b=0
         while(b!=1 and b!=2):
