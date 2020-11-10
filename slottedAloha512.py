@@ -7,12 +7,9 @@ def SlottedAloha(n):
     VetorAux = [0 for i in range(n)]
     Enviado = [0 for i in range(n)]
     TemposFinais = [0 for i in range(n)]
-
+    print("Inicialmente todas as maquinas transmitirao no tempo 51,2 microssegundos!")
     for i in range(n):
-        rand = randint(0, 60) * 512
-        Tempo[i] = rand
-        microssegundos = Tempo[i]/10
-        print("A estação ", i+1, " ira enviar no tempo:  ", microssegundos, " microssegundos")
+        Tempo[i] = 512
     Gatilho = 0
     TempoAtual = 0
     Aux = 0
@@ -33,19 +30,19 @@ def SlottedAloha(n):
                 VetorAux[Index] = i
                 Index += 1
         if(Colisao == 1):
-            print("\nColisao detectada nas estacoes:\n")
+            print("\nColisao detectada nas maquinas:\n")
             for i in range(Index):
-                rand = randint(1, 30) * 512
+                rand = randint(1, (n*2)) * 512    # intervalo do rand de 1 ate n*2 para ter uma margem de possibilidades de tempos razoavel
                 Tempo[VetorAux[i]] = Tempo[VetorAux[i]]+rand
-                print("\t( ", VetorAux[i]+1, " ", end=')')
+                print(" ( ",VetorAux[i]+1," ", end=')')
             if(Index > 1):
-                print("\n\nO novo tempo de envio de cada estacao sera: ")
+                print("\n\nO novo tempo de envio de cada maquina sera: ")
             for i in range(Index):
-                print("\tEstacao: ", VetorAux[i]+1, " -> ", (Tempo[VetorAux[i]]/10))
+                print("\tmaquina: ", VetorAux[i]+1, " -> ", (Tempo[VetorAux[i]]/10))
         if(Colisao != 1 and Aux == 1):
             Enviado[VetorAux[Index-1]] = 1
             microssegundo = TempoAtual/10
-            print("A estacao ", VetorAux[Index-1]+1," enviou com sucesso! Tempo: ", microssegundo," microssegundos")
+            print("A maquina ", VetorAux[Index-1]+1," enviou com sucesso! Tempo: ", microssegundo," microssegundos")
             TemposFinais[VetorAux[Index-1]] = microssegundo
             Gatilho = 1
         for i in range(n):
