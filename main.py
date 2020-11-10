@@ -12,7 +12,16 @@ if __name__ == "__main__":
         if(a==1):
             TemposAloha = SlottedAloha(n)
             print("\nOs tempos para as maquinas enviarem com o algoritmo Slotted Aloha foram:\n",TemposAloha)
-        
+            MenorT=TemposAloha[0]
+            for j in range(n):
+                if(MenorT>TemposAloha[j]):
+                    MenorT = TemposAloha[j]
+            print("O tempo necessario para a primeira maquina enviar foi de: ",MenorT," microssegundos")
+            Total=TemposAloha[0]
+            for i in range(n):
+                if(Total<TemposAloha[i]):
+                    Total = TemposAloha[i]
+            print("O tempo total foi: ",Total," microssegundos")
         print("\n\nDeseja voltar ao menu inicial?\n\t1 - Sim\n\t2 - Nao")
         b=0
         while(b!=1 and b!=2):
