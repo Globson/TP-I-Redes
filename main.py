@@ -1,4 +1,11 @@
 from Sources.slottedAloha import SlottedAloha
+from statistics import fmean,stdev
+
+def CalculosEstatisticos(VetorTPrimeiro,VetorTTodos): #Vetor contendo 33 valores de tempo gastos pela primeira maquina para enviar e todas para enviar, respectivamente.
+    print("\n\t->O tempo medio para a primeira maquina enviar foi de: %.5f microssegundos" % fmean(VetorTPrimeiro))
+    print("\n\t->O desvio padrao do tempo para a primeira maquina enviar foi de: %.5f microssegundos" % stdev(VetorTPrimeiro))
+    print("\n\t->O tempo medio para todas as maquinas enviarem foi de: %.5f microssegundos" % fmean(VetorTTodos))
+    print("\n\t->O desvio padrao do tempo para todas as maquinas enviarem enviar foi de: %.5f microssegundos" % stdev(VetorTTodos))
 
 if __name__ == "__main__":
     while(1):   
@@ -10,18 +17,24 @@ if __name__ == "__main__":
             if(a != 1 and a != 2 and a!=3):
                 print("Opcao invalida!")
         if(a==1):
-            TemposAloha = SlottedAloha(n)
-            print("\nOs tempos para as maquinas enviarem com o algoritmo Slotted Aloha foram:\n",TemposAloha)
-            MenorT=TemposAloha[0]
-            for j in range(n):
-                if(MenorT>TemposAloha[j]):
-                    MenorT = TemposAloha[j]
-            print("O tempo necessario para a primeira maquina enviar foi de: ",MenorT," microssegundos")
-            Total=TemposAloha[0]
-            for i in range(n):
-                if(Total<TemposAloha[i]):
-                    Total = TemposAloha[i]
-            print("O tempo total foi: ",Total," microssegundos")
+            VetorTEnviadoPrimeiro = []
+            VetorTTotal = []
+            for k in range (33):
+                TemposAloha = SlottedAloha(n)
+                #print("\nOs tempos para as maquinas enviarem com o algoritmo Slotted Aloha foram:\n",TemposAloha)
+                MenorT=TemposAloha[0]
+                for j in range(n):
+                    if(MenorT>TemposAloha[j]):
+                        MenorT = TemposAloha[j]
+                VetorTEnviadoPrimeiro.append(MenorT)
+                #print("O tempo necessario para a primeira maquina enviar foi de: ",MenorT," microssegundos")
+                Total=TemposAloha[0]
+                for i in range(n):
+                    if(Total<TemposAloha[i]):
+                        Total = TemposAloha[i]
+                VetorTTotal.append(Total)
+                #print("O tempo total foi: ",Total," microssegundos")
+            CalculosEstatisticos(VetorTEnviadoPrimeiro,VetorTTotal)
         #if(a==2):
             #Entrar com parte do CSMA
         #if(a==3):
