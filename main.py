@@ -1,7 +1,7 @@
 from Sources.slottedAloha import SlottedAloha
 from Sources.csmap import CSMAp
+from Sources.recuobinario import CSMAp_recuobinario
 from statistics import fmean,stdev
-
 def CalculosEstatisticos(VetorTPrimeiro,VetorTTodos): #Vetor contendo 33 valores de tempo gastos pela primeira maquina para enviar e todas para enviar, respectivamente.
     print("\n\t->O tempo medio para a primeira maquina enviar foi de: %.5f microssegundos" % fmean(VetorTPrimeiro))
     print("\n\t->O desvio padrao do tempo para a primeira maquina enviar foi de: %.5f microssegundos" % stdev(VetorTPrimeiro))
@@ -49,8 +49,18 @@ if __name__ == "__main__":
                 VetorTTotal.append(Tempos_CSMAp[1]*51.2)
                 #print("O tempo total foi: ",Total," microssegundos")
             CalculosEstatisticos(VetorTEnviadoPrimeiro,VetorTTotal)
-        #if(a==3):
-            #Entrar com parte do algoritmo de recuo
+        if(a==3):
+            VetorTEnviadoPrimeiro = []
+            VetorTTotal = []
+            for k in range(33):
+                Tempos_CSMApRecuoBinario = CSMAp_recuobinario(n)
+
+                VetorTEnviadoPrimeiro.append(Tempos_CSMApRecuoBinario[0]*51.2)
+                #print("O tempo necessario para a primeira maquina enviar foi de: ",MenorT," microssegundos")
+
+                VetorTTotal.append(Tempos_CSMApRecuoBinario[1]*51.2)
+                #print("O tempo total foi: ",Total," microssegundos")
+            CalculosEstatisticos(VetorTEnviadoPrimeiro, VetorTTotal)
         print("\n\nDeseja voltar ao menu inicial?\n\t1 - Sim\n\t2 - Nao")
         b=0
         while(b!=1 and b!=2):
