@@ -35,27 +35,27 @@ def CSMAp_recuobinario(n):
             for i in range(Estacoes):
                 QuantColisoes+=1
                 Tempo[Pronto[i]] += randint(0,(2**QuantColisoes)-1)
-            while True:
+
+            for j in range(Estacoes-1):
+                for k in range(i, Estacoes):
+                    if(Tempo[Pronto[j]] == Tempo[Pronto[k]]):
+                        ColidiuDnv.append(j)
+                        ColidiuDnv.append(k)
+            while (len(ColidiuDnv)>0):
+                QuantColisoes+=1
+                for i in ColidiuDnv:
+                    if(QuantColisoes>0 and QuantColisoes<=10):
+                        Tempo[Pronto[i]] += randint(0, (2**QuantColisoes)-1)
+                    elif (QuantColisoes>0 and QuantColisoes <= 16):
+                        Tempo[Pronto[i]] += randint(0, (2**10)-1)
+                    else:
+                        return False #ERRO!
+                ColidiuDnv = []
                 for j in range(Estacoes-1):
-                    for k in range(1,Estacoes):
-                      if(Tempo[Pronto[j]] == Tempo[Pronto[k]]):
+                    for k in range(i, Estacoes):
+                        if(Tempo[Pronto[j]] == Tempo[Pronto[k]]):
                             ColidiuDnv.append(j)
                             ColidiuDnv.append(k)
-                if(len(ColidiuDnv)>0):
-                    QuantColisoes+=1
-                    IndexColidiu=0
-                    for i in ColidiuDnv:
-                        if(QuantColisoes>0 and QuantColisoes<=10):
-                            Tempo[Pronto[i]] += randint(0, (2**QuantColisoes)-1)
-                        elif (QuantColisoes>0 and QuantColisoes <= 16):
-                            Tempo[Pronto[i]] += randint(0, (2**10)-1)
-                        else:
-                            return False #ERRO!
-                        del(ColidiuDnv[IndexColidiu])
-                        IndexColidiu+=1
-                    IndexColidiu=0
-            if (len(ColidiuDnv>0)):
-                break
 
         #Se apenas 1 tentar enviar esse é enviado
         elif (Estacoes == 1):
