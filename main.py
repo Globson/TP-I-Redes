@@ -54,12 +54,14 @@ if __name__ == "__main__":
             VetorTTotal = []
             for k in range(33):
                 Tempos_CSMApRecuoBinario = CSMAp_recuobinario(n)
+                if(Tempos_CSMApRecuoBinario==False):
+                    print("\n\tERRO! Houveram mais de 16 colisoes no algoritmo de recuo binario!")
+                else:
+                    VetorTEnviadoPrimeiro.append(Tempos_CSMApRecuoBinario[0]*51.2)
+                    #print("O tempo necessario para a primeira maquina enviar foi de: ",MenorT," microssegundos")
 
-                VetorTEnviadoPrimeiro.append(Tempos_CSMApRecuoBinario[0]*51.2)
-                #print("O tempo necessario para a primeira maquina enviar foi de: ",MenorT," microssegundos")
-
-                VetorTTotal.append(Tempos_CSMApRecuoBinario[1]*51.2)
-                #print("O tempo total foi: ",Total," microssegundos")
+                    VetorTTotal.append(Tempos_CSMApRecuoBinario[1]*51.2)
+                    #print("O tempo total foi: ",Total," microssegundos")
             CalculosEstatisticos(VetorTEnviadoPrimeiro, VetorTTotal)
         print("\n\nDeseja voltar ao menu inicial?\n\t1 - Sim\n\t2 - Nao")
         b=0
