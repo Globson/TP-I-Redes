@@ -1,6 +1,7 @@
 from Sources.slottedAloha import SlottedAloha
 from Sources.csmap import CSMAp
 from Sources.recuobinario import CSMAp_recuobinario
+from Sources.recuobinarioAloha import SlottedAlohaRecuo
 from statistics import fmean,stdev
 def CalculosEstatisticos(VetorTPrimeiro,VetorTTodos): #Vetor contendo 33 valores de tempo gastos pela primeira maquina para enviar e todas para enviar, respectivamente.
     print("\n\t->O tempo medio para a primeira maquina enviar foi de: %.5f microssegundos" % fmean(VetorTPrimeiro))
@@ -54,13 +55,37 @@ if __name__ == "__main__":
             VetorTTotal = []
             for k in range(33):
                 Tempos_CSMApRecuoBinario = CSMAp_recuobinario(n)
+                if(Tempos_CSMApRecuoBinario==False):
+                    print("\n\tERRO! Houveram mais de 16 colisoes no algoritmo de recuo binario!")
+                else:
+                    VetorTEnviadoPrimeiro.append(Tempos_CSMApRecuoBinario[0]*51.2)
+                    #print("O tempo necessario para a primeira maquina enviar foi de: ",MenorT," microssegundos")
 
-                VetorTEnviadoPrimeiro.append(Tempos_CSMApRecuoBinario[0]*51.2)
-                #print("O tempo necessario para a primeira maquina enviar foi de: ",MenorT," microssegundos")
-
-                VetorTTotal.append(Tempos_CSMApRecuoBinario[1]*51.2)
-                #print("O tempo total foi: ",Total," microssegundos")
+                    VetorTTotal.append(Tempos_CSMApRecuoBinario[1]*51.2)
+                    #print("O tempo total foi: ",Total," microssegundos")
             CalculosEstatisticos(VetorTEnviadoPrimeiro, VetorTTotal)
+        # if(a == 4):
+            # VetorTEnviadoPrimeiro = []
+            # VetorTTotal = []
+            # for k in range(33):
+                # Tempos_CSMApRecuoBinario = SlottedAlohaRecuo(n)
+                # if(Tempos_CSMApRecuoBinario == False):
+                    # print(
+                        # "\n\tERRO! Houveram mais de 16 colisoes no algoritmo de recuo binario!")
+                # else:
+                    # MenorT = Tempos_CSMApRecuoBinario[0]
+                    # for j in range(n):
+                        # if(MenorT > Tempos_CSMApRecuoBinario[j]):
+                            # MenorT = Tempos_CSMApRecuoBinario[j]
+                    # VetorTEnviadoPrimeiro.append(MenorT)
+                    # Total = Tempos_CSMApRecuoBinario[0]
+                    # for i in range(n):
+                        # if(Total < Tempos_CSMApRecuoBinario[i]):
+                            # Total = Tempos_CSMApRecuoBinario[i]
+                    # VetorTTotal.append(Total)
+                # print(VetorTEnviadoPrimeiro)
+                # print(VetorTTotal)
+            # CalculosEstatisticos(VetorTEnviadoPrimeiro, VetorTTotal)
         print("\n\nDeseja voltar ao menu inicial?\n\t1 - Sim\n\t2 - Nao")
         b=0
         while(b!=1 and b!=2):

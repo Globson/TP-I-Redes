@@ -1,6 +1,7 @@
 from random import randint
 
-def SlottedAloha(n):
+
+def SlottedAlohaRecuo(n):
     #print("O tamanho do frame é de 51,2 microsegundos\n")
     Tempo = [0 for i in range(n)]
     Pronto = [0 for i in range(n)]
@@ -30,19 +31,40 @@ def SlottedAloha(n):
                 VetorAux[Index] = i
                 Index += 1
         if(Colisao == 1):
+            ColidiuDnv = []
+            QuantColisoes = 0
             #print("\nColisao detectada nas maquinas:\n")
             for i in range(Index):
-                rand = randint(1, (n*2)) * 512    # intervalo do rand de 1 ate n*2 para ter uma margem de possibilidades de tempos razoavel
+                rand = randint(1, (n*2)) * 512
                 Tempo[VetorAux[i]] = Tempo[VetorAux[i]]+rand
-                #print(" ( ",VetorAux[i]+1," ", end=')')
+            for j in range(Index-1):
+                for k in range(i, Index):
+                    if(Tempo[VetorAux[j]] == Tempo[VetorAux[k]]):
+                        ColidiuDnv.append(j)
+                        ColidiuDnv.append(k)
+            while (len(ColidiuDnv) > 0):
+                QuantColisoes += 1
+                for i in ColidiuDnv:
+                    if(QuantColisoes > 0 and QuantColisoes <= 10):
+                        Tempo[VetorAux[i]] += randint(0, (2**QuantColisoes)-1)*512
+                    elif (QuantColisoes > 0 and QuantColisoes <= 16):
+                        Tempo[VetorAux[i]] += randint(0, (2**10)-1)*512
+                    else:
+                        return False  # ERRO!
+                ColidiuDnv = []
+                for j in range(Index-1):
+                    for k in range(i, Index):
+                        if(Tempo[VetorAux[j]] == Tempo[VetorAux[k]]):
+                            ColidiuDnv.append(j)
+                            ColidiuDnv.append(k)
             #if(Index > 1):
                 #print("\n\nO novo tempo de envio de cada maquina sera: ")
             #for i in range(Index):
-                #print("\tmaquina: ", VetorAux[i]+1, " -> ", (Tempo[VetorAux[i]]/10))
+                #print("\tmaquina: ", VetorAux[i]+1," -> ", (Tempo[VetorAux[i]]/10))
         if(Colisao != 1 and Aux == 1):
             Enviado[VetorAux[Index-1]] = 1
             microssegundo = TempoAtual/10
-            #print("A maquina ", VetorAux[Index-1]+1," enviou com sucesso! Tempo: ", microssegundo," microssegundos")
+            #print("A maquina ", VetorAux[Index-1]+1," enviou com sucesso! Tempo: ", microssegundo, " microssegundos")
             TemposFinais[VetorAux[Index-1]] = microssegundo
             Gatilho = 1
         for i in range(n):
@@ -55,4 +77,3 @@ def SlottedAloha(n):
         Colisao = 0
         Index = 0
     return TemposFinais
-
