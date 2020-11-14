@@ -11,12 +11,12 @@ def CSMAp (n):
     Ultimo = False
     Tempo_Atual = 2
     Restantes = n
-    contador = 1
     aux = []
+    #Considerando que todas as estações colidirão no segundo slot
+    #é atribuido um delay pra cada estação
     for i in range (n):
         delay = randint(1,n)
         Tempo[i] += delay
-        print(delay)
     
     while (Ultimo == False):
 
@@ -27,15 +27,16 @@ def CSMAp (n):
                 Tempo[i] = Tempo_Atual
 
         for i in range (n):
-            #Se cair no 1% de chance e a estação não estiver esperando 
-            # devido a uma colisão ou já foi enviada ela está pronta
+            # Seleciona estações que tempo da estação (com ou sem delay)
+            # for igual ao tempo atual
             if (Tempo[i] == Tempo_Atual):
                 Pronto.append(i)
 
         Estacoes = len(Pronto)
-
+            # Pra cada estação que puder enviar no momento atual seleciona 
+            # aquelas com probabilidade = 0,01
         for i in range (Estacoes):
-            if (randint(1,100)!=42):
+            if (randint(1,100)==42):
                 aux.append(Pronto[i])
 
         Estacoes = len(aux)
@@ -44,13 +45,10 @@ def CSMAp (n):
             for i in range(Estacoes):
                 delay = randint(1, n)
                 Tempo[aux[i]] += delay
-            #print(Tempo)
         #Se apenas 1 tentar enviar esse é enviado
         elif (Estacoes == 1):
             Enviados[aux[0]] = 1
             Restantes -= 1
-            print(Tempo, contador, Tempo[aux[0]])
-            #contador+=1
             if (Primeiro == False):
                 Primeiro = True
                 Tempos_Finais[0] = Tempo[aux[0]]
@@ -58,12 +56,9 @@ def CSMAp (n):
             if (Restantes == 0):
                 Tempos_Finais[1] = Tempo[aux[0]]
                 Ultimo = True
-            #del Tempo[Pronto[0]]
             
         Pronto = []
         aux = []
         Tempo_Atual += 1
         
-    return Tempos_Finais
-            
-    
+    return Tempos_Finais  
